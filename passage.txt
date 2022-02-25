@@ -1,0 +1,15 @@
+Another issue with delayed writes is the inability to enforce write ordering. Although
+an application may take care to order its write requests in such a way that they hit the
+disk in a specific order, the kernel will reorder the write requests as it sees fit, primarily
+for reasons of performance. This is normally a problem only if the system crashes, as
+eventually all of the buffers are written back and the final state of the file is as intended.
+The vast majority of applications are not actually concerned with write ordering.
+Databases are a rare use case concerned with ordering; they want to ensure that write
+operations are ordered such that the database is never in an inconsistent state.
+A final problem with delayed writes is the reporting of certain I/O errors. Any I/O error
+that occurs during writeback—say, a physical drive failure—cannot be reported back to
+the process that issued the write request. Indeed, dirty buffers inside the kernel are not
+associated with processes at all. Multiple processes may have dirtied the data contained
+in a single buffer, and processes may exit after writing data to a buffer but before that
+data is written back to disk. Besides, how would you communicate to a process that a
+write failed ex post facto?
