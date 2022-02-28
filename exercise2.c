@@ -20,12 +20,12 @@ int main(){
 	char buf1[hlen];
 	ssize_t r, nr;
 	
-	while((r = read(name_fd, buf, len)) > 0){
+	while((r = read(name_fd, buf, len))){
 		nr = write(half1, buf1, r);
 	}
 	
 	
-	//Writing another half of th contents
+	//Writing another half of the contents
 	
 	
 	close(name_fd);
