@@ -12,12 +12,11 @@ int main(int argc, char *argv[]){
 	int len = 191;
 	char buf[len];
 	
-	if(((fd = open(argv[1], O_RDONLY)) == -1) || ((fd1 = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664)) == -1)){
+	if(((fd = open(argv[1], O_RDONLY)) == -1) || ((fd1 = open(argv[2], O_CREAT | O_WRONLY)) == -1)){
 		perror("file problem");
-		exit(1);
 	}
 	
-	while ((ret1 = read(fd, buf, len)) > 0){
+	while ((ret1 = read(fd, buf, len))){
 		ret2 = write(fd1, buf, (ssize_t) ret1);
 	}
 	
